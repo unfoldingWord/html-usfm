@@ -1,7 +1,7 @@
 {
   "name": "@oce-editor-tools/mui-pk",
   "description": "A React Component Library for editing Usfm - incl. Proskomma cache.",
-  "version": "0.1.31-beta.17",
+  "version": "0.1.31-beta.19",
   "homepage": "https://oce-editor-tools-pk.netlify.app/",
   "license": "MIT",
   "repository": {
@@ -18,7 +18,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@oce-editor-tools/mui-core": "0.1.31-beta.17",
+    "@oce-editor-tools/mui-core": "0.1.31-beta.19",
     "@xelah/type-perf-html": "^1.0.3",
     "bible-reference-rcl": "^1.2.2",
     "dompurify": "^3.0.6",
