@@ -154,18 +154,20 @@ const sofria2WebActions = {
       description: 'Add completed para to webParas',
       test: () => true,
       action: ({ config, context, workspace: ws }) => {
-        if (!ws.suppressBcv) ws.webParas.push(
-          config.renderers.paragraph(
-            ws.settings.showParaStyles ||
-              ['footnote', 'xref'].includes(context.sequences[0].type)
-              ? ws.paraContentStack[0].subType
-              : 'usfm:m',
-            ws.paraContentStack[0].content,
-            ws.footnoteNo
-          )
-        );
-      },
-    },
+        if ((!ws.suppressBcv) || (ws?.paraContentStack[0]?.content.length>0)) {
+          ws.webParas.push(
+            config.renderers.paragraph(
+              ws.settings.showParaStyles ||
+                ['footnote', 'xref'].includes(context.sequences[0].type)
+                ? ws.paraContentStack[0].subType
+                : 'usfm:m',
+              ws?.paraContentStack[0]?.content,
+              ws.footnoteNo
+            )
+          );
+        }
+      }
+    }
   ],
   startWrapper: [
     {
@@ -323,7 +325,10 @@ const sofria2WebActions = {
           if (config.bcvFilter) {
             ws.suppressBcv = suppressVerse
           }
-          if (ws?.doVerify && ws.doVerify(ws?.curBcvId,ws.verifyBcv) && (!ws.suppressBcv)) {
+          if (!ws.suppressBcv && ws?.doVerify 
+            && ws.doVerify(ws?.curBcvId,ws.verifyBcv)
+            && config.renderers.extended_bcv_info
+          ) {
             const bId = ws.bookId.toLowerCase()
             const vNum = element.atts.number
             ws.paraContentStack[0].content.push(

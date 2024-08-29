@@ -2,11 +2,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import useUsfmPreviewRenderer from "../hooks/useUsfmPreviewRenderer"
+import DOMPurify from 'dompurify'
 
 export default function BookPreview(props) {
   const {
     usfmText,
     verbose = false,
+    htmlRender = true, 
     extInfo, 
     bcvFilter,
     renderFlags,
@@ -16,7 +18,8 @@ export default function BookPreview(props) {
   const { renderedData, ready } = useUsfmPreviewRenderer({
     usfmText,
     verbose, 
-    extInfo, 
+    extInfo,
+    htmlRender, 
     bcvFilter,
     renderFlags,
     ...extraProps
@@ -24,7 +27,9 @@ export default function BookPreview(props) {
 
   return (
     <div>
-      {(ready && renderedData) ? <>{renderedData}</> : `LOADING`}
+      { (!ready || !renderedData) && 'Loading...'}
+      { (htmlRender && ready && renderedData) && <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(renderedData)}}/>}
+      { (!htmlRender && ready && renderedData) && <>{renderedData}</>}
     </div>
   )
 }
@@ -40,5 +45,7 @@ BookPreview.propTypes = {
   extInfo: PropTypes.any,
   /** Whether to show extra info in the js console */
   verbose: PropTypes.bool,
+  /** Whether to render to html or React components */
+  htmlRender: PropTypes.bool,
 }
 

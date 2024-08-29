@@ -1,7 +1,7 @@
 # BookPreview demo
 
 ```js
-import { usfmText } from '../data/John.usfm.js'
+import { usfmText } from '../data/John.usfm.de.js'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
 function Component () {
@@ -23,7 +23,7 @@ function Component () {
     const {messageStr,color} = extInfo
     return (
       <span
-        key={"update-from-master"+verseId}
+        key={`update-from-master-${verseId}`}
         variant="contained"
         value="update-from-master"
         color={color}
@@ -41,7 +41,7 @@ function Component () {
           1: { 
             v: { 1: {}, 2: {}, 3: {}, 6: {}, 7: {}, 8: {}, 9: {}, 10: {}, 20: {}, 21: {} } 
           },
-          2: {} 
+          3: {} 
         } 
       } 
     } 
@@ -101,6 +101,7 @@ Vivamus ante ligula, tempor vel suscipit nec, elementum vel lectus. Nulla portti
     renderFlags,
     bcvFilter,
     extInfo,
+    htmlRender: false,
     verbose: true,
   }
   

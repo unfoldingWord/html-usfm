@@ -55,10 +55,10 @@ export class Render2React {
       text: (text) => text,
       chapter_label: (number) => {
         this.chapter = number
-        return <span id={"chapter-"+number} style={this.getStyles('marks', 'chapter_label')}>{number}</span>
+        return <span id={"chapter-"+number} key={"chapter-"+number} style={this.getStyles('marks', 'chapter_label')}>{number}</span>
       },
       verses_label: (number) => (
-        <span id={"chapter-"+this.chapter+"-verse-"+number} style={this.getStyles('marks', 'verses_label')}>{number}</span>
+        <span id={"chapter-"+this.chapter+"-verse-"+number} key={"chapter-"+this.chapter+"-verse-"+number} style={this.getStyles('marks', 'verses_label')}>{number}</span>
       ),
       extended_bcv_info: (verseId,extInfo) => {
         if (extInfo?.onRenderItem) {
